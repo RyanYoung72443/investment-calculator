@@ -1,2 +1,2 @@
-# investment-calculator
-A simple investment calculator in go
+# Simple GoLang Projects
+A repository of simple projects written in GoLang

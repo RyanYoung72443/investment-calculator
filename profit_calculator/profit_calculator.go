@@ -1,13 +1,27 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
 )
 
 func main() {
-	revenue := getValueFromUser("Earned revenue: ")
-	expenses := getValueFromUser("Expenses: ")
-	taxRate := getValueFromUser("Tax rate: ")
+	revenue, err := getValueFromUser("Earned revenue: ")
+	if err != nil {
+		fmt.Printf("%f %v", revenue, err)
+		return
+	}
+	expenses, err := getValueFromUser("Expenses: ")
+	if err != nil {
+		fmt.Printf("%f %v", expenses, err)
+		return
+	}
+	taxRate, err := getValueFromUser("Tax rate: ")
+	if err != nil {
+		fmt.Printf("%f %v", taxRate, err)
+		return
+	}
 
 	ebt, profit, ratio := calculateFinancials(revenue, expenses, taxRate)
 
@@ -15,13 +29,23 @@ func main() {
 	formatedProfit := fmt.Sprintf("Profit: $%.2f\n", profit)
 	formatedRatio := fmt.Sprintf("Ratio: %.2f%%\n", ratio)
 
+	writeCalculationToFile(formatedEBT, formatedProfit, formatedRatio)
+
 	fmt.Print(formatedEBT, formatedProfit, formatedRatio)
 }
 
-func getValueFromUser(valueDesired string) (res float64) {
+func writeCalculationToFile(formatedEBT, formatedProfit, formatedRatio string) {
+	document := formatedEBT + formatedProfit + formatedRatio
+	os.WriteFile("calculation.txt", []byte(document), 0644)
+}
+
+func getValueFromUser(valueDesired string) (res float64, err error) {
 	fmt.Print(valueDesired)
 	fmt.Scan(&res)
-	return
+	if res <= 0 {
+		return res, errors.New("value must be a positive number")
+	}
+	return res, nil
 }
 
 func calculateFinancials(revenue, expenses, taxRate float64) (ebt float64, profit float64, ratio float64) {

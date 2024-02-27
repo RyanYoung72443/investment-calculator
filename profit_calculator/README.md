@@ -1,3 +1,3 @@
 # Profit Calculator
 
-A simple profit calculator in go that calculates revenue - expenses and returns an ebt, a profit and ratio. 
+A simple profit calculator in go that calculates your revenue, expenses and taxRate. Then returns an ebt, a profit and ratio. 

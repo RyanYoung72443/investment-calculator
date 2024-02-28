@@ -25,18 +25,15 @@ func main() {
 
 	ebt, profit, ratio := calculateFinancials(revenue, expenses, taxRate)
 
-	formatedEBT := fmt.Sprintf("EBT: $%.2f\n", ebt)
-	formatedProfit := fmt.Sprintf("Profit: $%.2f\n", profit)
-	formatedRatio := fmt.Sprintf("Ratio: %.2f%%\n", ratio)
+	results := writeCalculationToFile(ebt, profit, ratio)
 
-	writeCalculationToFile(formatedEBT, formatedProfit, formatedRatio)
-
-	fmt.Print(formatedEBT, formatedProfit, formatedRatio)
+	fmt.Print(results)
 }
 
-func writeCalculationToFile(formatedEBT, formatedProfit, formatedRatio string) {
-	document := formatedEBT + formatedProfit + formatedRatio
+func writeCalculationToFile(ebt, profit, ratio float64) string {
+	document := fmt.Sprintf("EBT: $%.2f\nProfit: $%.2f\nRatio: %.2f%%\n", ebt, profit, ratio)
 	os.WriteFile("calculation.txt", []byte(document), 0644)
+	return document
 }
 
 func getValueFromUser(valueDesired string) (res float64, err error) {

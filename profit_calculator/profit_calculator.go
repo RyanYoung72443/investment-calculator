@@ -1,4 +1,4 @@
-package main
+package profit
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func main() {
+func App() {
 	revenue, err := getValueFromUser("Earned revenue: ")
 	if err != nil {
 		fmt.Printf("%f %v", revenue, err)

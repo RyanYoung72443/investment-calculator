@@ -1,4 +1,4 @@
-package main
+package investment
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 
 const inflationRate = 2.5
 
-func main() {
+func App() {
 	var investmentAmmount float64
 	var years float64
 	var expectedReturnRate float64

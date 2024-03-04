@@ -6,28 +6,52 @@ import (
 	"os"
 	"strings"
 
+	"training/interfaces"
 	"training/notetaker/note"
+	"training/notetaker/todo"
 )
 
-func App() {
-	title, content := getNoteData()
+func App(file string) {
+	var err error
 
-	userNote, err := note.New(title, content)
+	if file == "note" {
+		title, content := getNoteData()
+		err = handleReturn(note.New(title, content))
+	}
+
+	if file == "todo" {
+		todoText := getUserInput("Todo text:")
+		err = handleReturn(todo.New(todoText))
+	}
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+}
 
-	userNote.Display()
-	err = userNote.Save()
+func handleReturn(value interfaces.Outputable, err error) error {
+	if err != nil {
+		return err
+	}
+	return outputData(value)
+}
+
+func outputData(data interfaces.Outputable) error {
+	data.Display()
+	return saveData(data)
+}
+
+func saveData(data interfaces.Saver) error {
+	err := data.Save()
 
 	if err != nil {
 		fmt.Println("Saving the note failed.")
-		return
+		return err
 	}
 
 	fmt.Println("Saving the note succeeded!")
+	return nil
 }
 
 func getNoteData() (string, string) {

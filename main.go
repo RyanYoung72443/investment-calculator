@@ -15,7 +15,8 @@ func main() {
 		fmt.Println("2. Calculate Investment")
 		fmt.Println("3. Calculate Profit")
 		fmt.Println("4. Create Note")
-		fmt.Println("5. Exit")
+		fmt.Println("5. Create Todo")
+		fmt.Println("6. Exit")
 
 		var choice int
 		fmt.Print("Your choice: ")
@@ -29,8 +30,10 @@ func main() {
 		case 3:
 			investment.App()
 		case 4:
-			notetaker.App()
+			notetaker.App("note")
 		case 5:
+			notetaker.App("todo")
+		case 6:
 			return
 		}
 	}

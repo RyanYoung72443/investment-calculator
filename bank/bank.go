@@ -7,7 +7,7 @@ import (
 	"github.com/pallinder/go-randomdata"
 )
 
-const accountBalanceFile = "balance.txt"
+const accountBalanceFile = "bank/balance.txt"
 
 func App() {
 	accountBalance, err := fileops.GetFloatFromFile(accountBalanceFile, 1000)
